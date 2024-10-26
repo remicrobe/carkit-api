@@ -13,7 +13,7 @@ const doc = {
         description: 'API for carkit',
     },
     host: [
-        'api.youre-domain.fr',
+        'theodev.myftp.org:86',
     ],
     schemes: ['https'],
     consumes: ['application/json'],

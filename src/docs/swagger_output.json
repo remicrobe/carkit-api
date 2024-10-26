@@ -6,7 +6,7 @@
     "version": "1.0.0"
   },
   "host": [
-    "api.youre-domain.fr"
+    "theodev.myftp.org:86"
   ],
   "basePath": "/",
   "schemes": [
