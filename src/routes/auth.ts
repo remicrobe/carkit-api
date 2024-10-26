@@ -53,7 +53,6 @@ authRouter.post('/apple/', async (req, res) => {
                 '',
                 '',
                 (json?.payload as JwtPayload).email,
-                (json?.payload as JwtPayload).sub,
                 "apple_account",
                 "apple_account",
                 false,
@@ -114,7 +113,6 @@ authRouter.post('/google/', async (req, res) => {
                 '',
                 '',
                 payload['email'],
-                payload['sub'],
                 "google_account",
                 "google_account",
                 false,
@@ -174,7 +172,6 @@ authRouter.post('/from-provider/step-two', apiTokenMiddleware, async (req, res) 
             return res.sendStatus(422);
         }
 
-        user.username = username;
         user.firstName = firstname;
         user.lastName = lastname;
         user.isCompleted = true;

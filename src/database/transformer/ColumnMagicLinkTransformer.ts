@@ -7,6 +7,6 @@ export class ColumnMagicLinkTransformer {
         if(!data) {
             return
         }
-        return "https://join.split-app.fr/split/" + data;
+        return "https://join.carkit-app.fr/carkit/" + data;
     }
 }

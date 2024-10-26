@@ -1,7 +1,7 @@
 {
-  "name": "split-api",
+  "name": "carkit-api",
   "version": "1.0.0",
-  "description": "The split app !",
+  "description": "The CarKit app !",
   "main": "index.ts",
   "scripts": {
     "test": "ts-mocha 'src/test/*.ts' -p tsconfig.json --timeout 30000 --exit",

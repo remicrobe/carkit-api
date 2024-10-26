@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Split API",
-    "description": "API for split",
+    "title": "carkit API",
+    "description": "API for carkit",
     "version": "1.0.0"
   },
   "host": [
-    "api.split-app.fr"
+    "api.youre-domain.fr"
   ],
   "basePath": "/",
   "schemes": [
@@ -125,7 +125,7 @@
         "tags": [
           "Auth"
         ],
-        "description": "Seconde route une fois que tu as utilisé la première route pour utiliser un service tiers, elle attend les infos complémentaires pour que le compte soit valide",
+        "description": "Seconde routes une fois que tu as utilisé la première routes pour utiliser un service tiers, elle attend les infos complémentaires pour que le compte soit valide",
         "parameters": [
           {
             "name": "authorization",
@@ -180,6 +180,394 @@
           },
           "422": {
             "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/car/": {
+      "get": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Get all cars of the connected user.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cars retrieved successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Car"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. No valid token provided.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "msg": {
+                  "type": "string",
+                  "example": "Unauthorized."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Create a new car.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Car data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostCar"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car created successfully.",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable entity. Required fields missing.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 422
+                },
+                "msg": {
+                  "type": "string",
+                  "example": "Required fields missing."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/car/image/{carId}": {
+      "post": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Add images to a car.",
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Car ID"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Images data",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "example": [
+                "base64Image"
+              ],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Images added successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Image"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. No valid token provided.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "msg": {
+                  "type": "string",
+                  "example": "Unauthorized."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/car/image/{carId}/{imageId}": {
+      "delete": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Delete an image from a car.",
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Car ID"
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Image ID"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image deleted successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "deleted"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. No valid token provided.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "msg": {
+                  "type": "string",
+                  "example": "Unauthorized."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/car/{carId}": {
+      "delete": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Delete a car.",
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Car ID"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car deleted successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "deleted"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. No valid token provided.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "msg": {
+                  "type": "string",
+                  "example": "Unauthorized."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Update a car.",
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Car ID"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Car update data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutCar"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          },
+          "401": {
+            "description": "Unauthorized. No valid token provided.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "msg": {
+                  "type": "string",
+                  "example": "Unauthorized."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity. Required fields missing.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 422
+                },
+                "msg": {
+                  "type": "string",
+                  "example": "Required fields missing."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -451,31 +839,6 @@
         }
       }
     },
-    "/user/check/username/{username}": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "description": "Check if username already use.",
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "username to check"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      }
-    },
     "/user/login": {
       "post": {
         "tags": [
@@ -509,41 +872,6 @@
             "schema": {
               "$ref": "#/definitions/User"
             }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      }
-    },
-    "/user/friends": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "description": "Get user friends.",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User friends retrieved successfully.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "422": {
             "description": "Unprocessable Entity"
@@ -600,159 +928,6 @@
     }
   },
   "definitions": {
-    "Expense": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "example": 1
-        },
-        "name": {
-          "type": "string",
-          "example": "Expense name"
-        },
-        "payBy": {
-          "$ref": "#/definitions/User"
-        },
-        "date": {
-          "type": "string",
-          "example": "2024-06-03"
-        },
-        "editedAt": {
-          "type": "string",
-          "example": "2024-06-03"
-        },
-        "amount": {
-          "type": "number",
-          "example": 100.5
-        },
-        "imageLink": {
-          "type": "string",
-          "example": "https://example.com/image.jpg"
-        },
-        "group": {
-          "$ref": "#/definitions/Group"
-        },
-        "expenseParticipations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ExpenseParticipation"
-          }
-        },
-        "isRefund": {
-          "type": "boolean",
-          "example": true
-        },
-        "currency": {
-          "type": "boolean",
-          "example": true
-        }
-      }
-    },
-    "ExpenseParticipation": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "example": 1
-        },
-        "participant": {
-          "$ref": "#/definitions/User"
-        },
-        "amount": {
-          "type": "number",
-          "example": 50.25
-        },
-        "imageLink": {
-          "type": "string",
-          "example": "https://example.com/image.jpg"
-        },
-        "expense": {
-          "$ref": "#/definitions/Expense"
-        }
-      }
-    },
-    "Friends": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "example": 1
-        },
-        "user1": {
-          "$ref": "#/definitions/User"
-        },
-        "user2": {
-          "$ref": "#/definitions/User"
-        }
-      }
-    },
-    "FriendsRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "example": 1
-        },
-        "asker": {
-          "$ref": "#/definitions/User"
-        },
-        "receiver": {
-          "$ref": "#/definitions/User"
-        }
-      }
-    },
-    "Group": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "example": 1
-        },
-        "owner": {
-          "$ref": "#/definitions/User"
-        },
-        "name": {
-          "type": "string",
-          "example": "Group name"
-        },
-        "currency": {
-          "type": "string",
-          "example": "USD"
-        },
-        "showShareCard": {
-          "type": "boolean",
-          "example": true
-        },
-        "imageLink": {
-          "type": "string",
-          "example": "https://example.com/image.jpg"
-        },
-        "participants": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/User"
-          }
-        }
-      }
-    },
-    "PaymentMethod": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "example": 1
-        },
-        "name": {
-          "type": "string",
-          "example": "Payment method name"
-        },
-        "value": {
-          "type": "string",
-          "example": "Payment method value"
-        }
-      }
-    },
     "User": {
       "type": "object",
       "properties": {
@@ -767,10 +942,6 @@
         "lastName": {
           "type": "string",
           "example": "Doe"
-        },
-        "username": {
-          "type": "string",
-          "example": "johndoe"
         },
         "email": {
           "type": "string",
@@ -787,6 +958,250 @@
         "isGuest": {
           "type": "boolean",
           "example": false
+        }
+      }
+    },
+    "PutCar": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "string"
+        },
+        "fabricant": {
+          "type": "string",
+          "example": "string"
+        },
+        "licencePlate": {
+          "type": "string",
+          "example": "string"
+        },
+        "type": {
+          "type": "string",
+          "example": "number"
+        },
+        "color": {
+          "type": "string",
+          "example": "string"
+        },
+        "model": {
+          "type": "string",
+          "example": "string"
+        },
+        "mileage": {
+          "type": "string",
+          "example": "number"
+        },
+        "year": {
+          "type": "string",
+          "example": "number"
+        },
+        "fuel": {
+          "type": "string",
+          "example": "number"
+        },
+        "unit": {
+          "type": "string",
+          "example": "number"
+        },
+        "purchasePrice": {
+          "type": "string",
+          "example": "number"
+        },
+        "purchaseDate": {
+          "type": "string",
+          "example": "Date"
+        },
+        "mileageAtPurchase": {
+          "type": "string",
+          "example": "number"
+        },
+        "archivedAt": {
+          "type": "string",
+          "example": "Date"
+        },
+        "note": {
+          "type": "string",
+          "example": "string"
+        }
+      }
+    },
+    "PostCar": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "string"
+        },
+        "fabricant": {
+          "type": "string",
+          "example": "string"
+        },
+        "licencePlate": {
+          "type": "string",
+          "example": "string"
+        },
+        "type": {
+          "type": "string",
+          "example": "number"
+        },
+        "color": {
+          "type": "string",
+          "example": "string"
+        },
+        "model": {
+          "type": "string",
+          "example": "string"
+        },
+        "mileage": {
+          "type": "string",
+          "example": "number"
+        },
+        "year": {
+          "type": "string",
+          "example": "number"
+        },
+        "fuel": {
+          "type": "string",
+          "example": "number"
+        },
+        "unit": {
+          "type": "string",
+          "example": "number"
+        },
+        "purchasePrice": {
+          "type": "string",
+          "example": "number"
+        },
+        "purchaseDate": {
+          "type": "string",
+          "example": "Date"
+        },
+        "mileageAtPurchase": {
+          "type": "string",
+          "example": "number"
+        },
+        "archivedAt": {
+          "type": "string",
+          "example": "Date"
+        },
+        "note": {
+          "type": "string",
+          "example": "string"
+        },
+        "image": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "number"
+              },
+              "link": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Car": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "number"
+        },
+        "name": {
+          "type": "string",
+          "example": "string"
+        },
+        "fabricant": {
+          "type": "string",
+          "example": "string"
+        },
+        "licencePlate": {
+          "type": "string",
+          "example": "string"
+        },
+        "type": {
+          "type": "string",
+          "example": "number"
+        },
+        "color": {
+          "type": "string",
+          "example": "string"
+        },
+        "model": {
+          "type": "string",
+          "example": "string"
+        },
+        "mileage": {
+          "type": "string",
+          "example": "number"
+        },
+        "year": {
+          "type": "string",
+          "example": "number"
+        },
+        "fuel": {
+          "type": "string",
+          "example": "number"
+        },
+        "unit": {
+          "type": "string",
+          "example": "number"
+        },
+        "purchasePrice": {
+          "type": "string",
+          "example": "number"
+        },
+        "purchaseDate": {
+          "type": "string",
+          "example": "Date"
+        },
+        "mileageAtPurchase": {
+          "type": "string",
+          "example": "number"
+        },
+        "archivedAt": {
+          "type": "string",
+          "example": "Date"
+        },
+        "note": {
+          "type": "string",
+          "example": "string"
+        },
+        "image": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "number"
+              },
+              "link": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Image": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "number"
+        },
+        "link": {
+          "type": "string",
+          "example": "string"
         }
       }
     }

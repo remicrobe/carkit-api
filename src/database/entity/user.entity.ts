@@ -1,10 +1,7 @@
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    PrimaryGeneratedColumn
-} from "typeorm";
+
 import {ColumnImageTransformer} from "../transformer/ColumnImageTransformer";
+import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Car} from "./car.entity";
 
 @Entity()
 export class User {
@@ -15,15 +12,12 @@ export class User {
     firstName: string;
 
     @Column()
-    lastName: string;
+    lastName: string
 
-    @Column({default: null, nullable: true, unique: true})
-    username: string;
-
-    @Column({ unique: true })
+    @Column({unique: true})
     email: string;
 
-    @Column({ select: false })
+    @Column({select: false})
     password: string;
 
     @CreateDateColumn({type: "timestamp", select: false})
@@ -49,4 +43,7 @@ export class User {
 
     @Column({default: false, select: false})
     isAnonymise: boolean;
+
+    @OneToMany(() => Car, (car) => car.user)
+    cars: Car[];
 }

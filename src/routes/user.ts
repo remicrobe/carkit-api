@@ -110,9 +110,8 @@ userRouter.post('/register', rateLimiterMiddleware(60 * 15, 5), async (req, res)
             lastName,
             firstName,
             email,
-            username,
             createHash('sha256').update(password).digest('hex'),
-            "split_api",
+            "carkit_api",
             true,
             false
         )
@@ -178,7 +177,6 @@ userRouter.put('/update', apiTokenMiddleware, async (req, res) => {
         let { email, firstName, lastName, password, username, image } = req.body;
         let user: User = res.locals.connectedUser;
 
-        if (username && checkRequiredField([{ type: 'username', object: username }])) user.username = username;
         if (email && checkRequiredField([{ type: 'mail', object: email }])) user.email = email;
         if (password && checkRequiredField([{ type: 'password', object: password }])) user.password = createHash('sha256').update(password).digest('hex');
         if (image) {
@@ -233,30 +231,6 @@ userRouter.delete('/image', apiTokenMiddleware, async (req, res) => {
         }
 
         return res.send(user);
-    } catch (e) {
-        return ErrorHandler(e, req, res);
-    }
-});
-
-
-userRouter.get('/check/username/:username', async (req, res) => {
-    /*  #swagger.tags = ['User']
-        #swagger.path = '/user/check/username/{username}'
-        #swagger.description = 'Check if username already use.'
-        #swagger.parameters['username'] = {
-            in: 'path',
-            description: 'username to check',
-            required: true,
-            type: 'string'
-        }
-    */
-
-    try {
-        let { username } = req.params;
-
-        let user = await UserRepository.findOneBy({username})
-
-        return res.send(!!user);
     } catch (e) {
         return ErrorHandler(e, req, res);
     }

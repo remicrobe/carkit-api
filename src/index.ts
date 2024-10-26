@@ -1,5 +1,4 @@
 import * as dotenv from 'dotenv';
-import { Client } from "basic-ftp"
 
 dotenv.config()
 import * as express from 'express'
@@ -14,8 +13,8 @@ import {authRouter} from "./routes/auth";
 import {initSocket} from "./utils/socket/initSocket";
 import * as bodyParser from "body-parser"
 import * as swStats from "swagger-stats";
-import {UserRepository} from "./database/repository/user.repository";
 import * as cron from 'node-cron';
+import {carRouter} from "./routes/car";
 
 export class Index {
     static jwtKey = process.env.JWT_SECRET;
@@ -42,12 +41,13 @@ export class Index {
     static routeConfig() {
         Index.app.use('/user', userRouter)
         Index.app.use('/auth', authRouter)
+        Index.app.use('/car', carRouter)
     }
 
     static swaggerConfig() {
         const swaggerUi = require('swagger-ui-express')
         Index.app.use('/docs', basicAuth({
-            users: {'DOCUSERNAME': 'DOCPASSWORD'},
+            users: {'CARKIT': 'CARKIT'},
             challenge: true,
         }), swaggerUi.serve, swaggerUi.setup(swaggerJsonFile))
     }
@@ -59,7 +59,7 @@ export class Index {
             sessionMaxAge: 900,
             onAuthenticate: (req,username,password) => {
                 // CAN INSERT REAL LOGIC HERE
-                return((username==='swagger-splitstats') && (password==='swagger-splitpassword') );
+                return((username==='carkit') && (password==='carkit') );
             }
         }))
     }
@@ -73,7 +73,7 @@ export class Index {
 
     static redirectConfig() {
         Index.app.use((req, res) => {
-            res.redirect('https://you-re-website.fr');
+            res.redirect('https://remi-weil.fr');
         });
     }
 
@@ -104,7 +104,6 @@ export class Index {
         Index.imageFolder()
         Index.redirectConfig()
         await Index.databaseConfig()
-        await UserRepository.initSplitMaster();
         Index.startServer()
     }
 
