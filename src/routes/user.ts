@@ -94,26 +94,20 @@ userRouter.post('/register', rateLimiterMiddleware(60 * 15, 5), async (req, res)
     */
 
     try {
-        let { email, firstName, lastName, password, username, image } = req.body;
+        let { email, password, image } = req.body;
 
         if (!checkRequiredField([
             { type: 'mail', object: email },
             { type: 'password', object: password },
-            { type: 'name', object: firstName },
-            { type: 'name', object: lastName },
-            { type: 'username', object: username },
         ])) {
             return res.sendStatus(422);
         }
 
         let user = UserRepository.createUser(
-            lastName,
-            firstName,
             email,
             createHash('sha256').update(password).digest('hex'),
             "carkit_api",
-            true,
-            false
+            false,
         )
 
         if (image) {

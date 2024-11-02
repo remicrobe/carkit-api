@@ -34,10 +34,7 @@ const doc = {
     definitions: {
         User: {
             id: 1,
-            firstName: 'John',
-            lastName: 'Doe',
             email: 'john.doe@gmail.com',
-            isCompleted: true,
             imageLink: 'https://example.com/image.jpg',
             isGuest: false
         },

@@ -28,10 +28,7 @@ authRouter.post('/apple/', async (req, res) => {
         #swagger.responses[200] = {
             description: 'Successful authentication',
             schema: {
-                needStepTwo: 'true',
-                user: {
-                    $ref: '#/definitions/User'
-                }
+                $ref: '#/definitions/User'
             }
         }
  */
@@ -50,25 +47,19 @@ authRouter.post('/apple/', async (req, res) => {
         let appleUser = await UserRepository.findOneBy({email: (json?.payload as JwtPayload).email, isDeleted: Equal(false)})
         if (!appleUser) {
             appleUser = UserRepository.createUser(
-                '',
-                '',
                 (json?.payload as JwtPayload).email,
                 "apple_account",
                 "apple_account",
                 false,
-                false
             )
         }
 
         appleUser = await UserRepository.save(appleUser)
 
         res.send({
-            needStepTwo: !appleUser.isCompleted,
-            user: {
-                ...appleUser,
-                token: generateJwt("token", appleUser.id),
-                refreshToken: generateJwt("refreshToken", appleUser.id)
-            }
+            ...appleUser,
+            token: generateJwt("token", appleUser.id),
+            refreshToken: generateJwt("refreshToken", appleUser.id)
         })
     } catch (e) {
         ErrorHandler(e, req, res);
@@ -90,10 +81,7 @@ authRouter.post('/google/', async (req, res) => {
         #swagger.responses[200] = {
             description: 'Successful authentication',
             schema: {
-                needStepTwo: 'true',
-                user: {
-                     $ref: '#/definitions/User'
-                }
+                $ref: '#/definitions/User'
             }
         }
  */
@@ -110,87 +98,24 @@ authRouter.post('/google/', async (req, res) => {
         let googleUser = await UserRepository.findOneBy({email: payload['email'], isDeleted: Equal(false)})
         if (!googleUser) {
             googleUser = UserRepository.createUser(
-                '',
-                '',
                 payload['email'],
-                "google_account",
+                'google_account',
                 "google_account",
                 false,
-                false
             )
         }
 
         googleUser = await UserRepository.save(googleUser)
 
         res.send({
-            needStepTwo: !googleUser.isCompleted,
-            user: {
-                ...googleUser,
-                token: generateJwt("token", googleUser.id),
-                refreshToken: generateJwt("refreshToken", googleUser.id)
-            }
+            ...googleUser,
+            token: generateJwt("token", googleUser.id),
+            refreshToken: generateJwt("refreshToken", googleUser.id)
         })
     } catch (e) {
         ErrorHandler(e, req, res);
     }
 })
-
-
-authRouter.post('/from-provider/step-two', apiTokenMiddleware, async (req, res) => {
-    /*  #swagger.tags = ['Auth']
-        #swagger.path = '/auth/from-provider/step-two'
-        #swagger.description = 'Seconde routes une fois que tu as utilisé la première routes pour utiliser un service tiers, elle attend les infos complémentaires pour que le compte soit valide'
-        #swagger.parameters['body'] = {
-            in: 'body',
-            description: 'Informations nécessaires pour compléter le compte utilisateur',
-            required: true,
-            schema: {
-                    username: 'johndoe123',
-                    firstname: 'John',
-                    lastname: 'Doe'
-            }
-        }
-        #swagger.responses[200] = {
-            description: 'Successful authentication',
-            schema: {
-                needStepTwo: 'true',
-                user: {
-                      $ref: '#/definitions/User'
-                }
-            }
-        }
-    */
-    try {
-        let user: User = res.locals.connectedUser;
-
-        if (user.isCompleted) {
-            return res.sendStatus(422);
-        }
-
-        let {username, firstname, lastname} = req.body;
-        if (!checkRequiredField([username, firstname, lastname])) {
-            return res.sendStatus(422);
-        }
-
-        user.firstName = firstname;
-        user.lastName = lastname;
-        user.isCompleted = true;
-
-        await UserRepository.save(user);
-
-        res.send({
-            needStepTwo: !user.isCompleted,
-            user: {
-                ...user,
-                token: generateJwt("token", user.id),
-                refreshToken: generateJwt("refreshToken", user.id)
-            }
-        });
-    } catch (e) {
-        ErrorHandler(e, req, res);
-    }
-});
-
 
 
 export {authRouter}

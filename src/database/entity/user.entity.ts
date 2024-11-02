@@ -8,12 +8,6 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    firstName: string;
-
-    @Column()
-    lastName: string
-
     @Column({unique: true})
     email: string;
 
@@ -27,7 +21,6 @@ export class User {
     provider: string;
 
     @Column({default: true})
-    isCompleted: boolean;
 
     @Column({default: false})
     isGuest: boolean;

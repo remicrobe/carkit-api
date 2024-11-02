@@ -51,19 +51,7 @@
           "200": {
             "description": "Successful authentication",
             "schema": {
-              "type": "object",
-              "properties": {
-                "needStepTwo": {
-                  "type": "string",
-                  "example": "true"
-                },
-                "user": {
-                  "$ref": "#/definitions/User"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+              "$ref": "#/definitions/User"
             }
           },
           "401": {
@@ -99,84 +87,8 @@
           "200": {
             "description": "Successful authentication",
             "schema": {
-              "type": "object",
-              "properties": {
-                "needStepTwo": {
-                  "type": "string",
-                  "example": "true"
-                },
-                "user": {
-                  "$ref": "#/definitions/User"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+              "$ref": "#/definitions/User"
             }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      }
-    },
-    "/auth/from-provider/step-two": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "Seconde routes une fois que tu as utilisé la première routes pour utiliser un service tiers, elle attend les infos complémentaires pour que le compte soit valide",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Informations nécessaires pour compléter le compte utilisateur",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "type": "string",
-                  "example": "johndoe123"
-                },
-                "firstname": {
-                  "type": "string",
-                  "example": "John"
-                },
-                "lastname": {
-                  "type": "string",
-                  "example": "Doe"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful authentication",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "needStepTwo": {
-                  "type": "string",
-                  "example": "true"
-                },
-                "user": {
-                  "$ref": "#/definitions/User"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "422": {
             "description": "Unprocessable Entity"
@@ -935,21 +847,9 @@
           "type": "number",
           "example": 1
         },
-        "firstName": {
-          "type": "string",
-          "example": "John"
-        },
-        "lastName": {
-          "type": "string",
-          "example": "Doe"
-        },
         "email": {
           "type": "string",
           "example": "john.doe@gmail.com"
-        },
-        "isCompleted": {
-          "type": "boolean",
-          "example": true
         },
         "imageLink": {
           "type": "string",
