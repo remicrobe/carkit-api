@@ -91,7 +91,7 @@ authRouter.post('/google/', async (req, res) => {
         const client = new googleAuth.OAuth2Client();
         const ticket = await client.verifyIdToken({
             idToken: identityToken,
-            audience: ['youre-audience-id-here'],
+            audience: ['751070485057-jmt56tmfmojpr690kl0nt2n5tg2v3390.apps.googleusercontent.com'],
         });
         const payload = ticket.getPayload();
 
