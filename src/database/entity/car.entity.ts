@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import {User} from "./user.entity";
 import {Image} from "./image.entity";
+import {Entry} from "./entry.entity";
 
 @Entity()
 export class Car {
@@ -25,7 +26,13 @@ export class Car {
     licencePlate: string;
 
     @Column({ nullable: true })
+    vin: string;
+
+    @Column({ nullable: true })
     type: number;
+
+    @Column({ nullable: true })
+    typeOfUse: number;
 
     @Column({ nullable: true })
     color: string;
@@ -72,4 +79,11 @@ export class Car {
         onUpdate: 'CASCADE'
     })
     images: Image[]
+
+    @OneToMany(() => Entry, (e) => e.car, {
+        cascade: true,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    })
+    entry: Entry[]
 }

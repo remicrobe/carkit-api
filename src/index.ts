@@ -15,6 +15,7 @@ import * as bodyParser from "body-parser"
 import * as swStats from "swagger-stats";
 import * as cron from 'node-cron';
 import {carRouter} from "./routes/car";
+import {entryRouter} from "./routes/entry";
 
 export class Index {
     static jwtKey = process.env.JWT_SECRET;
@@ -42,6 +43,7 @@ export class Index {
         Index.app.use('/user', userRouter)
         Index.app.use('/auth', authRouter)
         Index.app.use('/car', carRouter)
+        Index.app.use('/entry', entryRouter)
     }
 
     static swaggerConfig() {

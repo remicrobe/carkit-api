@@ -5,6 +5,7 @@ const endpointsFiles = [
     './src/routes/auth.ts',
     './src/routes/car.ts',
     './src/routes/user.ts',
+    './src/routes/entry.ts',
 ]
 
 const doc = {
@@ -41,6 +42,7 @@ const doc = {
         PutCar: {
             name: 'string',
             fabricant: 'string',
+            vin: 'string',
             licencePlate: 'string',
             type: 'number',
             color: 'string',
@@ -54,10 +56,12 @@ const doc = {
             mileageAtPurchase: 'number',
             archivedAt: 'Date',
             note: 'string',
+            typeOfUse: 'CarTypeOfUse'
         },
         PostCar: {
             name: 'string',
             fabricant: 'string',
+            vin: 'string',
             licencePlate: 'string',
             type: 'number',
             color: 'string',
@@ -71,6 +75,7 @@ const doc = {
             mileageAtPurchase: 'number',
             archivedAt: 'Date',
             note: 'string',
+            typeOfUse: 'CarTypeOfUse',
             image: [{
                 id: 'number',
                 link: 'string'
@@ -81,6 +86,7 @@ const doc = {
             name: 'string',
             fabricant: 'string',
             licencePlate: 'string',
+            vin: 'string',
             type: 'number',
             color: 'string',
             model: 'string',
@@ -93,10 +99,32 @@ const doc = {
             mileageAtPurchase: 'number',
             archivedAt: 'Date',
             note: 'string',
+            typeOfUse: 'CarTypeOfUse',
             image: [{
                 id: 'number',
                 link: 'string'
             }]
+        },
+        entry: {
+            id: 'number',
+            type: 'EntryType',
+            part: 'CarPart?',
+            spendingType: 'SpendingType?',
+            price: 'number?',
+            quantity: 'number?',
+            date: 'Date',
+            mileage: 'number?',
+            notes: 'string?',
+        },
+        PostEntry: {
+            type: 'EntryType',
+            part: 'CarPart?',
+            spendingType: 'SpendingType?',
+            price: 'number?',
+            quantity: 'number?',
+            date: 'Date',
+            mileage: 'number?',
+            notes: 'string?',
         },
         Image: {
             id: 'number',
@@ -104,7 +132,5 @@ const doc = {
         }
     }
 };
-
-
 
 swaggerAutogen(outputFile, endpointsFiles, doc)
