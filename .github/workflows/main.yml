@@ -21,4 +21,12 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: pm2 stop carkit-api && cd C:\Users\Theo\Documents\carkit-api && git stash && git stash clear && git pull origin main && npm install && npm run build && pm2 start build/index.js --name carkit-api
+          script: |
+            pm2 stop carkit-api
+            cd node/carkit-api
+            git stash
+            git stash clear
+            git pull origin main
+            npm install
+            npm run build
+            pm2 start build/index.js --name carkit-api
