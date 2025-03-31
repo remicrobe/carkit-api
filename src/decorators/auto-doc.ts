@@ -149,9 +149,13 @@ function transformResponses(responses: AutoDocResponse[]): any {
     responses.forEach(resp => {
         resObj[resp.code] = {
             description: "Response",
-            examples: resp.exemple
+            schema: {
+                type: "string",
+                example: resp.exemple ?? ''
+            }
         };
     });
+
     return resObj;
 }
 

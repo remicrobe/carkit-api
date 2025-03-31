@@ -21,15 +21,21 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "desc": "fullUser"
+            "schema": {
+              "type": "string",
+              "example": {
+                "desc": "fullUser"
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           }
         }
@@ -45,16 +51,22 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "status": 200,
-              "msg": "User bien supprimé"
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 200,
+                "msg": "User bien supprimé"
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           }
         }
@@ -91,7 +103,10 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {}
+            "schema": {
+              "type": "string",
+              "example": {}
+            }
           }
         }
       }
@@ -136,20 +151,29 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {}
+            "schema": {
+              "type": "string",
+              "example": {}
+            }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "User not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "User not found."
+              }
             }
           },
           "422": {
             "description": "Response",
-            "examples": {
-              "status": 422,
-              "msg": "Required fields missing."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 422,
+                "msg": "Required fields missing."
+              }
             }
           }
         }
@@ -165,20 +189,29 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {}
+            "schema": {
+              "type": "string",
+              "example": {}
+            }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "User not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "User not found."
+              }
             }
           },
           "422": {
             "description": "Response",
-            "examples": {
-              "status": 422,
-              "msg": "Required fields missing."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 422,
+                "msg": "Required fields missing."
+              }
             }
           }
         }
@@ -212,7 +245,10 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {}
+            "schema": {
+              "type": "string",
+              "example": {}
+            }
           }
         }
       }
@@ -238,13 +274,19 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {}
+            "schema": {
+              "type": "string",
+              "example": {}
+            }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Aucun token valide trouvé."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Aucun token valide trouvé."
+              }
             }
           }
         }
@@ -260,8 +302,11 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "status": "I'm up !"
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": "I'm up !"
+              }
             }
           }
         }
@@ -311,26 +356,35 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "id": "uuid",
-              "cost": 150.75,
-              "date": "2023-01-01",
-              "type": "insurance",
-              "name": "Annual insurance"
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "uuid",
+                "cost": 150.75,
+                "date": "2023-01-01",
+                "type": "insurance",
+                "name": "Annual insurance"
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -355,28 +409,37 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": [
-              {
-                "id": "uuid",
-                "cost": 150.75,
-                "date": "2023-01-01",
-                "type": "insurance",
-                "name": "Annual insurance"
-              }
-            ]
+            "schema": {
+              "type": "string",
+              "example": [
+                {
+                  "id": "uuid",
+                  "cost": 150.75,
+                  "date": "2023-01-01",
+                  "type": "insurance",
+                  "name": "Annual insurance"
+                }
+              ]
+            }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -403,23 +466,32 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "status": 200,
-              "msg": "Spending entry deleted successfully."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 200,
+                "msg": "Spending entry deleted successfully."
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Spending entry not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Spending entry not found."
+              }
             }
           }
         }
@@ -463,24 +535,33 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "id": "uuid",
-              "date": "2023-01-01",
-              "mileage": 15000
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "uuid",
+                "date": "2023-01-01",
+                "mileage": 15000
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Part not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Part not found."
+              }
             }
           }
         }
@@ -505,26 +586,35 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": [
-              {
-                "id": "uuid",
-                "date": "2023-01-01",
-                "mileage": 15000
-              }
-            ]
+            "schema": {
+              "type": "string",
+              "example": [
+                {
+                  "id": "uuid",
+                  "date": "2023-01-01",
+                  "mileage": 15000
+                }
+              ]
+            }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Part not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Part not found."
+              }
             }
           }
         }
@@ -568,24 +658,33 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "id": "uuid",
-              "date": "2023-02-01",
-              "mileage": 16000
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "uuid",
+                "date": "2023-02-01",
+                "mileage": 16000
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Service not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Service not found."
+              }
             }
           }
         }
@@ -610,23 +709,32 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "status": 200,
-              "msg": "Service deleted successfully."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 200,
+                "msg": "Service deleted successfully."
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Service not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Service not found."
+              }
             }
           }
         }
@@ -676,26 +784,35 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "id": "uuid",
-              "name": "Brakes",
-              "status": "enable",
-              "advicedRevision": "Check every 20,000 km",
-              "isCustom": true
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "uuid",
+                "name": "Brakes",
+                "status": "enable",
+                "advicedRevision": "Check every 20,000 km",
+                "isCustom": true
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -720,28 +837,37 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": [
-              {
-                "id": "uuid",
-                "name": "Brakes",
-                "status": "enable",
-                "advicedRevision": "Check every 20,000 km",
-                "isCustom": true
-              }
-            ]
+            "schema": {
+              "type": "string",
+              "example": [
+                {
+                  "id": "uuid",
+                  "name": "Brakes",
+                  "status": "enable",
+                  "advicedRevision": "Check every 20,000 km",
+                  "isCustom": true
+                }
+              ]
+            }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -788,26 +914,35 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "id": "uuid",
-              "name": "Updated Brakes",
-              "status": "disabled",
-              "advicedRevision": "Check every 15,000 km",
-              "isCustom": true
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "uuid",
+                "name": "Updated Brakes",
+                "status": "disabled",
+                "advicedRevision": "Check every 15,000 km",
+                "isCustom": true
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Part not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Part not found."
+              }
             }
           }
         }
@@ -832,23 +967,32 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "status": 200,
-              "msg": "Part deleted successfully."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 200,
+                "msg": "Part deleted successfully."
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Part not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Part not found."
+              }
             }
           }
         }
@@ -892,24 +1036,33 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "id": "uuid",
-              "mileage": 15000,
-              "date": "2023-01-01"
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "uuid",
+                "mileage": 15000,
+                "date": "2023-01-01"
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -934,26 +1087,35 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": [
-              {
-                "id": "uuid",
-                "mileage": 15000,
-                "date": "2023-01-01"
-              }
-            ]
+            "schema": {
+              "type": "string",
+              "example": [
+                {
+                  "id": "uuid",
+                  "mileage": 15000,
+                  "date": "2023-01-01"
+                }
+              ]
+            }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -980,23 +1142,32 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "status": 200,
-              "msg": "Mileage entry deleted successfully."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 200,
+                "msg": "Mileage entry deleted successfully."
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Mileage entry not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Mileage entry not found."
+              }
             }
           }
         }
@@ -1049,27 +1220,36 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "id": "uuid",
-              "quantity": 50,
-              "unit": "liter",
-              "cost": 80.5,
-              "mileage": 15000,
-              "date": "2023-01-01"
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "uuid",
+                "quantity": 50,
+                "unit": "liter",
+                "cost": 80.5,
+                "mileage": 15000,
+                "date": "2023-01-01"
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -1094,29 +1274,38 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": [
-              {
-                "id": "uuid",
-                "quantity": 50,
-                "unit": "liter",
-                "cost": 80.5,
-                "mileage": 15000,
-                "date": "2023-01-01"
-              }
-            ]
+            "schema": {
+              "type": "string",
+              "example": [
+                {
+                  "id": "uuid",
+                  "quantity": 50,
+                  "unit": "liter",
+                  "cost": 80.5,
+                  "mileage": 15000,
+                  "date": "2023-01-01"
+                }
+              ]
+            }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -1143,23 +1332,32 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "status": 200,
-              "msg": "Full tank entry deleted successfully."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 200,
+                "msg": "Full tank entry deleted successfully."
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Full tank entry not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Full tank entry not found."
+              }
             }
           }
         }
@@ -1208,26 +1406,35 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "id": "uuid",
-              "name": "My Tesla",
-              "make": "Tesla",
-              "model": "Model S",
-              "type": "elec"
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "uuid",
+                "name": "My Tesla",
+                "make": "Tesla",
+                "model": "Model S",
+                "type": "elec"
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "422": {
             "description": "Response",
-            "examples": {
-              "status": 422,
-              "msg": "Required fields missing."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 422,
+                "msg": "Required fields missing."
+              }
             }
           }
         }
@@ -1241,21 +1448,27 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": [
-              {
-                "id": "uuid",
-                "name": "My Tesla",
-                "make": "Tesla",
-                "model": "Model S",
-                "type": "elec"
-              }
-            ]
+            "schema": {
+              "type": "string",
+              "example": [
+                {
+                  "id": "uuid",
+                  "name": "My Tesla",
+                  "make": "Tesla",
+                  "model": "Model S",
+                  "type": "elec"
+                }
+              ]
+            }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           }
         }
@@ -1282,26 +1495,35 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "id": "uuid",
-              "name": "My Tesla",
-              "make": "Tesla",
-              "model": "Model S",
-              "type": "elec"
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "uuid",
+                "name": "My Tesla",
+                "make": "Tesla",
+                "model": "Model S",
+                "type": "elec"
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -1358,26 +1580,35 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "id": "uuid",
-              "name": "Updated Tesla",
-              "make": "Tesla",
-              "model": "Model S",
-              "type": "elec"
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "uuid",
+                "name": "Updated Tesla",
+                "make": "Tesla",
+                "model": "Model S",
+                "type": "elec"
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -1402,23 +1633,32 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {
-              "status": 200,
-              "msg": "Car deleted successfully."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 200,
+                "msg": "Car deleted successfully."
+              }
             }
           },
           "401": {
             "description": "Response",
-            "examples": {
-              "status": 401,
-              "msg": "Unauthorized."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 401,
+                "msg": "Unauthorized."
+              }
             }
           },
           "404": {
             "description": "Response",
-            "examples": {
-              "status": 404,
-              "msg": "Car not found."
+            "schema": {
+              "type": "string",
+              "example": {
+                "status": 404,
+                "msg": "Car not found."
+              }
             }
           }
         }
@@ -1449,7 +1689,10 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {}
+            "schema": {
+              "type": "string",
+              "example": {}
+            }
           }
         }
       }
@@ -1479,7 +1722,10 @@
         "responses": {
           "200": {
             "description": "Response",
-            "examples": {}
+            "schema": {
+              "type": "string",
+              "example": {}
+            }
           }
         }
       }
