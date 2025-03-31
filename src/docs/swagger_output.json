@@ -1,530 +1,36 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "carkit API",
-    "description": "API for carkit",
-    "version": "1.0.0"
+    "title": "CarKit API Documentation",
+    "version": "0.0.1"
   },
   "host": [
-    "theodev.myftp.org:86"
+    "carkit.lazyy.fr"
   ],
-  "basePath": "/",
   "schemes": [
     "https"
   ],
-  "securityDefinitions": {
-    "Bearer": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "description": "Enter your Bearer token in the format **Bearer &lt;token&gt;**"
-    }
-  },
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
   "paths": {
-    "/auth/apple/": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "Authentification avec apple voir la réponse, si needStepTwo = true dans ce cas tu affiches une page pour demander username firstname et lastname et tu fais apple a l",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "identityToken": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful authentication",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      }
-    },
-    "/auth/google/": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "Authentification avec google voir la réponse, si needStepTwo = true dans ce cas tu affiches une page pour demander username firstname et lastname et tu fais apple a l",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "identityToken": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful authentication",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      }
-    },
-    "/car/": {
-      "get": {
-        "tags": [
-          "Car"
-        ],
-        "description": "Get all cars of the connected user.",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Cars retrieved successfully.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Car"
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. No valid token provided.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Unauthorized."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Car"
-        ],
-        "description": "Create a new car.",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Car data",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PostCar"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Car created successfully.",
-            "schema": {
-              "$ref": "#/definitions/Car"
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "422": {
-            "description": "Unprocessable entity. Required fields missing.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 422
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Required fields missing."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/car/image/{carId}": {
-      "post": {
-        "tags": [
-          "Car"
-        ],
-        "description": "Add images to a car.",
-        "parameters": [
-          {
-            "name": "carId",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "Car ID"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Images data",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "example": [
-                "base64Image"
-              ],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Images added successfully.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Image"
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. No valid token provided.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Unauthorized."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      }
-    },
-    "/car/image/{carId}/{imageId}": {
-      "delete": {
-        "tags": [
-          "Car"
-        ],
-        "description": "Delete an image from a car.",
-        "parameters": [
-          {
-            "name": "carId",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "Car ID"
-          },
-          {
-            "name": "imageId",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "Image ID"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Image deleted successfully.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "msg": {
-                  "type": "string",
-                  "example": "deleted"
-                },
-                "status": {
-                  "type": "number",
-                  "example": 200
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. No valid token provided.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Unauthorized."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      }
-    },
-    "/car/{carId}": {
-      "delete": {
-        "tags": [
-          "Car"
-        ],
-        "description": "Delete a car.",
-        "parameters": [
-          {
-            "name": "carId",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "Car ID"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Car deleted successfully.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "msg": {
-                  "type": "string",
-                  "example": "deleted"
-                },
-                "status": {
-                  "type": "number",
-                  "example": 200
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. No valid token provided.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Unauthorized."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Car"
-        ],
-        "description": "Update a car.",
-        "parameters": [
-          {
-            "name": "carId",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "Car ID"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Car update data",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PutCar"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Car updated successfully.",
-            "schema": {
-              "$ref": "#/definitions/Car"
-            }
-          },
-          "401": {
-            "description": "Unauthorized. No valid token provided.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Unauthorized."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable entity. Required fields missing.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 422
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Required fields missing."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          }
-        }
-      }
-    },
     "/user/me": {
       "get": {
         "tags": [
           "User"
         ],
         "description": "Get all information of the connected user.",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "User information retrieved successfully.",
-            "schema": {
-              "$ref": "#/definitions/User"
+            "description": "Response",
+            "examples": {
+              "desc": "fullUser"
             }
           },
           "401": {
-            "description": "Unauthorized. No valid token provided.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Unauthorized."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
             }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
           }
         }
       }
@@ -535,54 +41,21 @@
           "User"
         ],
         "description": "Delete an User.",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "User information deleted successfully.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "msg": {
-                  "type": "string",
-                  "example": ""
-                },
-                "status": {
-                  "type": "number",
-                  "example": 200
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "status": 200,
+              "msg": "User bien supprimé"
             }
           },
           "401": {
-            "description": "Unauthorized. No valid token provided.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Unauthorized."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
             }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
           }
         }
       }
@@ -595,21 +68,30 @@
         "description": "Register a new user.",
         "parameters": [
           {
-            "name": "body",
             "in": "body",
-            "description": "User registration data",
+            "name": "body",
             "required": true,
+            "description": "User registration data",
             "schema": {
-              "$ref": "#/definitions/User"
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "user@example.com"
+                },
+                "password": {
+                  "example": "Password123"
+                },
+                "image": {
+                  "example": "base64ImageString"
+                }
+              }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
+            "description": "Response",
+            "examples": {}
           }
         }
       }
@@ -622,66 +104,52 @@
         "description": "Update user details.",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
             "in": "body",
-            "description": "User update data",
+            "name": "body",
             "required": true,
+            "description": "User update data",
             "schema": {
-              "$ref": "#/definitions/User"
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "new@example.com"
+                },
+                "firstName": {
+                  "example": "John"
+                },
+                "lastName": {
+                  "example": "Doe"
+                },
+                "password": {
+                  "example": "newPass"
+                },
+                "username": {
+                  "example": "johndoe"
+                },
+                "image": {
+                  "example": "base64ImageString"
+                }
+              }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "User updated successfully.",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
+            "description": "Response",
+            "examples": {}
           },
           "404": {
-            "description": "User not found.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 404
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "User not found."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "User not found."
             }
           },
           "422": {
-            "description": "Unprocessable entity.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 422
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Required fields missing."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "status": 422,
+              "msg": "Required fields missing."
             }
           }
         }
@@ -693,59 +161,24 @@
           "User"
         ],
         "description": "Delete user image.",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "User updated successfully.",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
+            "description": "Response",
+            "examples": {}
           },
           "404": {
-            "description": "User not found.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 404
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "User not found."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "User not found."
             }
           },
           "422": {
-            "description": "Unprocessable entity.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 422
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Required fields missing."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "status": 422,
+              "msg": "Required fields missing."
             }
           }
         }
@@ -759,19 +192,17 @@
         "description": "User login.",
         "parameters": [
           {
-            "name": "body",
             "in": "body",
-            "description": "User login data",
+            "name": "body",
             "required": true,
+            "description": "User login data",
             "schema": {
               "type": "object",
               "properties": {
                 "email": {
-                  "type": "string",
                   "example": "user@example.com"
                 },
                 "password": {
-                  "type": "string",
                   "example": "Password123"
                 }
               }
@@ -780,13 +211,8 @@
         ],
         "responses": {
           "200": {
-            "description": "User login successful.",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
+            "description": "Response",
+            "examples": {}
           }
         }
       }
@@ -799,689 +225,1637 @@
         "description": "Refresh user token.",
         "parameters": [
           {
-            "name": "refreshToken",
             "in": "path",
+            "name": "refreshToken",
             "required": true,
-            "type": "string",
-            "description": "Refresh token"
+            "description": "Path parameter refreshToken",
+            "schema": {
+              "type": "string",
+              "example": "yourRefreshToken"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "User token refreshed successfully.",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
+            "description": "Response",
+            "examples": {}
           },
           "401": {
-            "description": "Unauthorized. No valid token provided.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Aucun token valide trouvé."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Aucun token valide trouvé."
             }
-          },
-          "422": {
-            "description": "Unprocessable Entity"
           }
         }
       }
     },
-    "/entry/{carId}": {
+    "/status/": {
       "get": {
         "tags": [
-          "Entry"
+          "Status"
         ],
-        "description": "Get all entries of a specific car.",
+        "description": "Return \"i'm up\".",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "status": "I'm up !"
+            }
+          }
+        }
+      }
+    },
+    "/spending/{carId}": {
+      "post": {
+        "tags": [
+          "Spending"
+        ],
+        "description": "Add a new spending entry for a car.",
         "parameters": [
           {
-            "name": "carId",
-            "in": "path",
+            "in": "body",
+            "name": "body",
             "required": true,
-            "type": "integer",
-            "description": "Car ID"
+            "description": "Spending entry data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "example": 150.75
+                },
+                "date": {
+                  "example": "2023-01-01"
+                },
+                "type": {
+                  "example": "insurance"
+                },
+                "name": {
+                  "example": "Annual insurance"
+                }
+              }
+            }
           },
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "Path parameter carId",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Entries retrieved successfully.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Entry"
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "id": "uuid",
+              "cost": 150.75,
+              "date": "2023-01-01",
+              "type": "insurance",
+              "name": "Annual insurance"
             }
           },
           "401": {
-            "description": "Unauthorized. No valid token provided.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Unauthorized."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
             }
           },
-          "422": {
-            "description": "Unprocessable Entity"
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
+            }
           }
         }
       },
-      "post": {
+      "get": {
         "tags": [
-          "Entry"
+          "Spending"
         ],
-        "description": "Create a new entry for a specific car.",
+        "description": "Get all spending entries for a car.",
         "parameters": [
           {
-            "name": "carId",
             "in": "path",
+            "name": "carId",
             "required": true,
-            "type": "integer",
-            "description": "Car ID"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Entry data",
-            "required": true,
+            "description": "Path parameter carId",
             "schema": {
-              "$ref": "#/definitions/PostEntry"
+              "type": "string",
+              "example": "uuid"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Entry created successfully.",
-            "schema": {
-              "$ref": "#/definitions/Entry"
-            }
+            "description": "Response",
+            "examples": [
+              {
+                "id": "uuid",
+                "cost": 150.75,
+                "date": "2023-01-01",
+                "type": "insurance",
+                "name": "Annual insurance"
+              }
+            ]
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
           },
-          "422": {
-            "description": "Unprocessable entity. Required fields missing.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 422
-                },
-                "msg": {
-                  "type": "string",
-                  "example": "Required fields missing."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
             }
           }
         }
       }
     },
-    "/entry/{carId}/{entryId}": {
-      "put": {
+    "/spending/{id}": {
+      "delete": {
         "tags": [
-          "Entry"
+          "Spending"
         ],
-        "description": "Update an entry for a specific car.",
+        "description": "Delete a spending entry.",
         "parameters": [
           {
-            "name": "carId",
             "in": "path",
+            "name": "id",
             "required": true,
-            "type": "integer",
-            "description": "Car ID"
-          },
-          {
-            "name": "entryId",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "Entry ID"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Entry update data",
-            "required": true,
+            "description": "Path parameter id",
             "schema": {
-              "$ref": "#/definitions/PostEntry"
+              "type": "string",
+              "example": "uuid"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Entry updated successfully.",
-            "schema": {
-              "$ref": "#/definitions/Entry"
+            "description": "Response",
+            "examples": {
+              "status": 200,
+              "msg": "Spending entry deleted successfully."
             }
           },
           "401": {
-            "description": "Unauthorized. No valid token provided.",
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Spending entry not found."
+            }
+          }
+        }
+      }
+    },
+    "/service/{partId}": {
+      "post": {
+        "tags": [
+          "Service"
+        ],
+        "description": "Create a new service entry for a part.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Service creation data",
             "schema": {
               "type": "object",
               "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
+                "date": {
+                  "example": "2023-01-01"
                 },
-                "msg": {
-                  "type": "string",
-                  "example": "Unauthorized."
+                "mileage": {
+                  "example": 15000
                 }
-              },
-              "xml": {
-                "name": "main"
               }
             }
           },
-          "422": {
-            "description": "Unprocessable entity. Required fields missing.",
+          {
+            "in": "path",
+            "name": "partId",
+            "required": true,
+            "description": "Path parameter partId",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "id": "uuid",
+              "date": "2023-01-01",
+              "mileage": 15000
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Part not found."
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "description": "Get all service entries for a part.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "partId",
+            "required": true,
+            "description": "Path parameter partId",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": [
+              {
+                "id": "uuid",
+                "date": "2023-01-01",
+                "mileage": 15000
+              }
+            ]
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Part not found."
+            }
+          }
+        }
+      }
+    },
+    "/service/{id}": {
+      "put": {
+        "tags": [
+          "Service"
+        ],
+        "description": "Update a service entry.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Service update data",
             "schema": {
               "type": "object",
               "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 422
+                "date": {
+                  "example": "2023-02-01"
                 },
-                "msg": {
-                  "type": "string",
-                  "example": "Required fields missing."
+                "mileage": {
+                  "example": 16000
                 }
-              },
-              "xml": {
-                "name": "main"
               }
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Path parameter id",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "id": "uuid",
+              "date": "2023-02-01",
+              "mileage": 16000
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Service not found."
             }
           }
         }
       },
       "delete": {
         "tags": [
-          "Entry"
+          "Service"
         ],
-        "description": "Delete an entry for a specific car.",
+        "description": "Delete a service entry.",
         "parameters": [
           {
-            "name": "carId",
             "in": "path",
+            "name": "id",
             "required": true,
-            "type": "integer",
-            "description": "Car ID"
-          },
-          {
-            "name": "entryId",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "Entry ID"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "description": "Path parameter id",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Entry deleted successfully.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "msg": {
-                  "type": "string",
-                  "example": "deleted"
-                },
-                "status": {
-                  "type": "number",
-                  "example": 200
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+            "description": "Response",
+            "examples": {
+              "status": 200,
+              "msg": "Service deleted successfully."
             }
           },
           "401": {
-            "description": "Unauthorized. No valid token provided.",
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Service not found."
+            }
+          }
+        }
+      }
+    },
+    "/part/{carId}": {
+      "post": {
+        "tags": [
+          "Part"
+        ],
+        "description": "Create a new custom part for a car.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Part creation data",
             "schema": {
               "type": "object",
               "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 401
+                "name": {
+                  "example": "Brakes"
                 },
-                "msg": {
-                  "type": "string",
-                  "example": "Unauthorized."
+                "status": {
+                  "example": "enable"
+                },
+                "advicedRevision": {
+                  "example": "Check every 20,000 km"
+                },
+                "isCustom": {
+                  "example": true
                 }
-              },
-              "xml": {
-                "name": "main"
               }
             }
           },
+          {
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "Path parameter carId",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "id": "uuid",
+              "name": "Brakes",
+              "status": "enable",
+              "advicedRevision": "Check every 20,000 km",
+              "isCustom": true
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Part"
+        ],
+        "description": "Get all parts for a car.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "Path parameter carId",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": [
+              {
+                "id": "uuid",
+                "name": "Brakes",
+                "status": "enable",
+                "advicedRevision": "Check every 20,000 km",
+                "isCustom": true
+              }
+            ]
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
+            }
+          }
+        }
+      }
+    },
+    "/part/{id}": {
+      "put": {
+        "tags": [
+          "Part"
+        ],
+        "description": "Update a custom part.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Part update data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "Updated Brakes"
+                },
+                "status": {
+                  "example": "disabled"
+                },
+                "advicedRevision": {
+                  "example": "Check every 15,000 km"
+                }
+              }
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Path parameter id",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "id": "uuid",
+              "name": "Updated Brakes",
+              "status": "disabled",
+              "advicedRevision": "Check every 15,000 km",
+              "isCustom": true
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Part not found."
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Part"
+        ],
+        "description": "Delete a custom part.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Path parameter id",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "status": 200,
+              "msg": "Part deleted successfully."
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Part not found."
+            }
+          }
+        }
+      }
+    },
+    "/mileage/{carId}": {
+      "post": {
+        "tags": [
+          "Mileage"
+        ],
+        "description": "Add a new mileage entry for a car.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Mileage entry data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mileage": {
+                  "example": 15000
+                },
+                "date": {
+                  "example": "2023-01-01"
+                }
+              }
+            }
+          },
+          {
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "Path parameter carId",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "id": "uuid",
+              "mileage": 15000,
+              "date": "2023-01-01"
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Mileage"
+        ],
+        "description": "Get all mileage entries for a car.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "Path parameter carId",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": [
+              {
+                "id": "uuid",
+                "mileage": 15000,
+                "date": "2023-01-01"
+              }
+            ]
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
+            }
+          }
+        }
+      }
+    },
+    "/mileage/{id}": {
+      "delete": {
+        "tags": [
+          "Mileage"
+        ],
+        "description": "Delete a mileage entry.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Path parameter id",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "status": 200,
+              "msg": "Mileage entry deleted successfully."
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Mileage entry not found."
+            }
+          }
+        }
+      }
+    },
+    "/full-tank/{carId}": {
+      "post": {
+        "tags": [
+          "FullTank"
+        ],
+        "description": "Add a new full tank entry for a car.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Full tank entry data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "example": 50
+                },
+                "unit": {
+                  "example": "liter"
+                },
+                "cost": {
+                  "example": 80.5
+                },
+                "mileage": {
+                  "example": 15000
+                },
+                "date": {
+                  "example": "2023-01-01"
+                }
+              }
+            }
+          },
+          {
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "Path parameter carId",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "id": "uuid",
+              "quantity": 50,
+              "unit": "liter",
+              "cost": 80.5,
+              "mileage": 15000,
+              "date": "2023-01-01"
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "FullTank"
+        ],
+        "description": "Get all full tank entries for a car.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "Path parameter carId",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": [
+              {
+                "id": "uuid",
+                "quantity": 50,
+                "unit": "liter",
+                "cost": 80.5,
+                "mileage": 15000,
+                "date": "2023-01-01"
+              }
+            ]
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
+            }
+          }
+        }
+      }
+    },
+    "/full-tank/{id}": {
+      "delete": {
+        "tags": [
+          "FullTank"
+        ],
+        "description": "Delete a full tank entry.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Path parameter id",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "status": 200,
+              "msg": "Full tank entry deleted successfully."
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Full tank entry not found."
+            }
+          }
+        }
+      }
+    },
+    "/car": {
+      "post": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Create a new car.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Car creation data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "example": "ice"
+                },
+                "model": {
+                  "example": "Model S"
+                },
+                "make": {
+                  "example": "Tesla"
+                },
+                "name": {
+                  "example": "My Tesla"
+                },
+                "mileageAtStart": {
+                  "example": 10000
+                },
+                "year": {
+                  "example": 2020
+                },
+                "imageData": {
+                  "example": "base64ImageString"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "id": "uuid",
+              "name": "My Tesla",
+              "make": "Tesla",
+              "model": "Model S",
+              "type": "elec"
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
           "422": {
-            "description": "Unprocessable Entity"
+            "description": "Response",
+            "examples": {
+              "status": 422,
+              "msg": "Required fields missing."
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Get all cars for the connected user.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": [
+              {
+                "id": "uuid",
+                "name": "My Tesla",
+                "make": "Tesla",
+                "model": "Model S",
+                "type": "elec"
+              }
+            ]
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          }
+        }
+      }
+    },
+    "/car/{id}": {
+      "get": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Get car details by ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Path parameter id",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "id": "uuid",
+              "name": "My Tesla",
+              "make": "Tesla",
+              "model": "Model S",
+              "type": "elec"
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Update car details.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Car update data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "make": {
+                  "example": "Tesla"
+                },
+                "model": {
+                  "example": "Model S"
+                },
+                "name": {
+                  "example": "My Tesla"
+                },
+                "mileageAtStart": {
+                  "example": 10000
+                },
+                "year": {
+                  "example": 2020
+                },
+                "type": {
+                  "example": "elec"
+                },
+                "imageData": {
+                  "example": "base64ImageString"
+                }
+              }
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Path parameter id",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "id": "uuid",
+              "name": "Updated Tesla",
+              "make": "Tesla",
+              "model": "Model S",
+              "type": "elec"
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Car"
+        ],
+        "description": "Delete a car.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Path parameter id",
+            "schema": {
+              "type": "string",
+              "example": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {
+              "status": 200,
+              "msg": "Car deleted successfully."
+            }
+          },
+          "401": {
+            "description": "Response",
+            "examples": {
+              "status": 401,
+              "msg": "Unauthorized."
+            }
+          },
+          "404": {
+            "description": "Response",
+            "examples": {
+              "status": 404,
+              "msg": "Car not found."
+            }
+          }
+        }
+      }
+    },
+    "/auth/apple/": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Authentification avec Apple. Si \"needStepTwo\" est true, il faut afficher une page pour demander username, firstname et lastname et faire l'authentification sur une autre route avec le token renvoyé.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Informations pour identifier l'utilisateur (ex: identityToken)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "identityToken": {
+                  "example": "identityToken"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {}
+          }
+        }
+      }
+    },
+    "/auth/google/": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Authentification avec Google. Si \"needStepTwo\" est true, il faut afficher une page pour demander username, firstname et lastname et faire l'authentification sur une autre route avec le token renvoyé.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Informations pour identifier l'utilisateur (ex: identityToken)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "identityToken": {
+                  "example": "identityToken"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "examples": {}
           }
         }
       }
     }
   },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your Bearer token in the format **Bearer <token>**"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "definitions": {
-    "User": {
+    "MileageEntry": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "number",
-          "example": 1
-        },
-        "email": {
-          "type": "string",
-          "example": "john.doe@gmail.com"
-        },
-        "imageLink": {
-          "type": "string",
-          "example": "https://example.com/image.jpg"
-        },
-        "isGuest": {
-          "type": "boolean",
-          "example": false
-        }
-      }
-    },
-    "PutCar": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "example": "string"
-        },
-        "fabricant": {
-          "type": "string",
-          "example": "string"
-        },
-        "vin": {
-          "type": "string",
-          "example": "string"
-        },
-        "licencePlate": {
-          "type": "string",
-          "example": "string"
-        },
-        "type": {
-          "type": "string",
-          "example": "number"
-        },
-        "color": {
-          "type": "string",
-          "example": "string"
-        },
-        "model": {
-          "type": "string",
-          "example": "string"
+          "type": "string"
         },
         "mileage": {
-          "type": "string",
-          "example": "number"
+          "type": "string"
         },
-        "year": {
-          "type": "string",
-          "example": "number"
+        "date": {
+          "type": "string"
         },
-        "fuel": {
-          "type": "string",
-          "example": "number"
+        "createdAt": {
+          "type": "string"
         },
-        "unit": {
-          "type": "string",
-          "example": "number"
+        "updateAt": {
+          "type": "string"
         },
-        "purchasePrice": {
-          "type": "string",
-          "example": "number"
+        "deletedAt": {
+          "type": "string"
         },
-        "purchaseDate": {
-          "type": "string",
-          "example": "Date"
+        "car": {
+          "type": "string"
         },
-        "mileageAtPurchase": {
-          "type": "string",
-          "example": "number"
-        },
-        "archivedAt": {
-          "type": "string",
-          "example": "Date"
-        },
-        "note": {
-          "type": "string",
-          "example": "string"
-        },
-        "typeOfUse": {
-          "type": "string",
-          "example": "CarTypeOfUse"
+        "carId": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "id",
+        "mileage",
+        "date",
+        "createdAt",
+        "updateAt",
+        "deletedAt",
+        "car",
+        "carId"
+      ]
     },
-    "PostCar": {
+    "FullTankEntry": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "example": "string"
+        "id": {
+          "type": "string"
         },
-        "fabricant": {
-          "type": "string",
-          "example": "string"
-        },
-        "vin": {
-          "type": "string",
-          "example": "string"
-        },
-        "licencePlate": {
-          "type": "string",
-          "example": "string"
-        },
-        "type": {
-          "type": "string",
-          "example": "number"
-        },
-        "color": {
-          "type": "string",
-          "example": "string"
-        },
-        "model": {
-          "type": "string",
-          "example": "string"
-        },
-        "mileage": {
-          "type": "string",
-          "example": "number"
-        },
-        "year": {
-          "type": "string",
-          "example": "number"
-        },
-        "fuel": {
-          "type": "string",
-          "example": "number"
+        "quantity": {
+          "type": "string"
         },
         "unit": {
-          "type": "string",
-          "example": "number"
+          "type": "string"
         },
-        "purchasePrice": {
-          "type": "string",
-          "example": "number"
+        "cost": {
+          "type": "string"
         },
-        "purchaseDate": {
-          "type": "string",
-          "example": "Date"
+        "mileage": {
+          "type": "string"
         },
-        "mileageAtPurchase": {
-          "type": "string",
-          "example": "number"
+        "date": {
+          "type": "string"
         },
-        "archivedAt": {
-          "type": "string",
-          "example": "Date"
+        "createdAt": {
+          "type": "string"
         },
-        "note": {
-          "type": "string",
-          "example": "string"
+        "updatedAt": {
+          "type": "string"
         },
-        "typeOfUse": {
-          "type": "string",
-          "example": "CarTypeOfUse"
+        "deleteAt": {
+          "type": "string"
         },
-        "image": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "example": "number"
-              },
-              "link": {
-                "type": "string",
-                "example": "string"
-              }
-            }
-          }
+        "car": {
+          "type": "string"
+        },
+        "carId": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "id",
+        "quantity",
+        "unit",
+        "cost",
+        "mileage",
+        "date",
+        "createdAt",
+        "updatedAt",
+        "deleteAt",
+        "car",
+        "carId"
+      ]
+    },
+    "Part": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "advicedRevision": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "deletedAt": {
+          "type": "string"
+        },
+        "car": {
+          "type": "string"
+        },
+        "carId": {
+          "type": "string"
+        },
+        "services": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "status",
+        "advicedRevision",
+        "createdAt",
+        "updatedAt",
+        "deletedAt",
+        "car",
+        "carId",
+        "services"
+      ]
+    },
+    "Service": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "mileage": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "deletedAt": {
+          "type": "string"
+        },
+        "part": {
+          "type": "string"
+        },
+        "partId": {
+          "type": "string"
+        },
+        "spending": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "date",
+        "mileage",
+        "createdAt",
+        "updatedAt",
+        "deletedAt",
+        "part",
+        "partId",
+        "spending"
+      ]
+    },
+    "SpendingEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "cost": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "deleteAt": {
+          "type": "string"
+        },
+        "car": {
+          "type": "string"
+        },
+        "carId": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "cost",
+        "date",
+        "type",
+        "createdAt",
+        "updatedAt",
+        "deleteAt",
+        "car",
+        "carId",
+        "service",
+        "serviceId"
+      ]
     },
     "Car": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "example": "number"
+          "type": "string"
         },
         "name": {
-          "type": "string",
-          "example": "string"
+          "type": "string"
         },
         "fabricant": {
-          "type": "string",
-          "example": "string"
-        },
-        "licencePlate": {
-          "type": "string",
-          "example": "string"
-        },
-        "vin": {
-          "type": "string",
-          "example": "string"
-        },
-        "type": {
-          "type": "string",
-          "example": "number"
-        },
-        "color": {
-          "type": "string",
-          "example": "string"
+          "type": "string"
         },
         "model": {
-          "type": "string",
-          "example": "string"
+          "type": "string"
         },
-        "mileage": {
-          "type": "string",
-          "example": "number"
+        "imageLink": {
+          "type": "string"
+        },
+        "mileageAtStart": {
+          "type": "string"
         },
         "year": {
-          "type": "string",
-          "example": "number"
+          "type": "string"
         },
-        "fuel": {
-          "type": "string",
-          "example": "number"
+        "type": {
+          "type": "string"
         },
-        "unit": {
-          "type": "string",
-          "example": "number"
+        "createdAt": {
+          "type": "string"
         },
-        "purchasePrice": {
-          "type": "string",
-          "example": "number"
+        "updatedAt": {
+          "type": "string"
         },
-        "purchaseDate": {
-          "type": "string",
-          "example": "Date"
+        "deletedAt": {
+          "type": "string"
         },
-        "mileageAtPurchase": {
-          "type": "string",
-          "example": "number"
+        "mileages": {
+          "type": "string"
         },
-        "archivedAt": {
-          "type": "string",
-          "example": "Date"
+        "fullTanks": {
+          "type": "string"
         },
-        "note": {
-          "type": "string",
-          "example": "string"
+        "spendings": {
+          "type": "string"
         },
-        "typeOfUse": {
-          "type": "string",
-          "example": "CarTypeOfUse"
+        "parts": {
+          "type": "string"
         },
-        "image": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "example": "number"
-              },
-              "link": {
-                "type": "string",
-                "example": "string"
-              }
-            }
-          }
+        "user": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "id",
+        "name",
+        "fabricant",
+        "model",
+        "imageLink",
+        "mileageAtStart",
+        "year",
+        "type",
+        "createdAt",
+        "updatedAt",
+        "deletedAt",
+        "mileages",
+        "fullTanks",
+        "spendings",
+        "parts",
+        "user"
+      ]
     },
-    "entry": {
+    "User": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "example": "number"
+          "type": "string"
         },
-        "type": {
-          "type": "string",
-          "example": "EntryType"
+        "email": {
+          "type": "string"
         },
-        "part": {
-          "type": "string",
-          "example": "CarPart?"
+        "password": {
+          "type": "string"
         },
-        "spendingType": {
-          "type": "string",
-          "example": "SpendingType?"
+        "createdAt": {
+          "type": "string"
         },
-        "price": {
-          "type": "string",
-          "example": "number?"
+        "provider": {
+          "type": "string"
         },
-        "quantity": {
-          "type": "string",
-          "example": "number?"
+        "isGuest": {
+          "type": "string"
         },
-        "date": {
-          "type": "string",
-          "example": "Date"
+        "imageLink": {
+          "type": "string"
         },
-        "mileage": {
-          "type": "string",
-          "example": "number?"
+        "isDeleted": {
+          "type": "string"
         },
-        "notes": {
-          "type": "string",
-          "example": "string?"
+        "deletedAt": {
+          "type": "string"
+        },
+        "isAnonymise": {
+          "type": "string"
+        },
+        "cars": {
+          "type": "string"
         }
-      }
-    },
-    "PostEntry": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "example": "EntryType"
-        },
-        "part": {
-          "type": "string",
-          "example": "CarPart?"
-        },
-        "spendingType": {
-          "type": "string",
-          "example": "SpendingType?"
-        },
-        "price": {
-          "type": "string",
-          "example": "number?"
-        },
-        "quantity": {
-          "type": "string",
-          "example": "number?"
-        },
-        "date": {
-          "type": "string",
-          "example": "Date"
-        },
-        "mileage": {
-          "type": "string",
-          "example": "number?"
-        },
-        "notes": {
-          "type": "string",
-          "example": "string?"
-        }
-      }
-    },
-    "Image": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "example": "number"
-        },
-        "link": {
-          "type": "string",
-          "example": "string"
-        }
-      }
+      },
+      "required": [
+        "id",
+        "email",
+        "password",
+        "createdAt",
+        "provider",
+        "isGuest",
+        "imageLink",
+        "isDeleted",
+        "deletedAt",
+        "isAnonymise",
+        "cars"
+      ]
     }
-  },
-  "security": [
-    {
-      "Bearer": []
-    }
-  ]
+  }
 }

@@ -2,8 +2,10 @@
 import {ColumnImageTransformer} from "../transformer/ColumnImageTransformer";
 import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Car} from "./car.entity";
+import {AutoDocEntity} from "../../decorators/auto-doc-entity";
 
 @Entity()
+@AutoDocEntity()
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
@@ -19,8 +21,6 @@ export class User {
 
     @Column({default: null, nullable: true})
     provider: string;
-
-    @Column({default: true})
 
     @Column({default: false})
     isGuest: boolean;

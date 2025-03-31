@@ -4,18 +4,16 @@ dotenv.config()
 import * as express from 'express'
 import * as cors from 'cors'
 import {AppDataSource} from "./database/datasource";
-import {userRouter} from "./routes/user";
 import {Server} from 'socket.io';
 import * as http from "http";
 import * as swaggerJsonFile from "./docs/swagger_output.json"
 import * as basicAuth from 'express-basic-auth'
-import {authRouter} from "./routes/auth";
 import {initSocket} from "./utils/socket/initSocket";
 import * as bodyParser from "body-parser"
 import * as swStats from "swagger-stats";
 import * as cron from 'node-cron';
-import {carRouter} from "./routes/car";
-import {entryRouter} from "./routes/entry";
+import {IRouter, Router} from "express";
+import {controllers} from "./controllers/controller";
 
 export class Index {
     static jwtKey = process.env.JWT_SECRET;
@@ -39,11 +37,39 @@ export class Index {
     }
 
 
-    static routeConfig() {
-        Index.app.use('/user', userRouter)
-        Index.app.use('/auth', authRouter)
-        Index.app.use('/car', carRouter)
-        Index.app.use('/entry', entryRouter)
+    static async routeConfig() {
+        const info: Array<{
+            method: string,
+            path: string,
+            handler: string
+        }> = [];
+
+        const controllersToParse = await controllers();
+
+        controllersToParse.forEach((controllerClass) => {
+            const basePath = Reflect.getMetadata('base_path', controllerClass.default);
+            const routers: any[] = Reflect.getMetadata('routers', controllerClass.default);
+
+            const controllerInstance = new controllerClass.default();
+
+            const expressRouter = Router();
+
+            if (routers) {
+                routers.forEach(({ method, path, handlerName }) => {
+                    expressRouter[method](basePath + path, controllerInstance[handlerName].bind(controllerInstance));
+
+                    info.push({
+                        method: method.toLocaleUpperCase(),
+                        path: `${basePath + path}`,
+                        handler: `${controllerInstance.constructor.name}.${String(handlerName)}`,
+                    });
+                });
+            }
+
+            this.app.use(expressRouter);
+        })
+
+        console.table(info);
     }
 
     static swaggerConfig() {
@@ -75,7 +101,7 @@ export class Index {
 
     static redirectConfig() {
         Index.app.use((req, res) => {
-            res.redirect('https://remi-weil.fr');
+            res.sendStatus(404);
         });
     }
 
@@ -98,12 +124,12 @@ export class Index {
 
     static async main() {
         Index.jobsConfig()
-        Index.swaggerConfig()
         Index.statsConfig()
         Index.globalConfig()
-        Index.routeConfig()
+        await Index.routeConfig()
         Index.socketConfig()
         Index.imageFolder()
+        Index.swaggerConfig()
         Index.redirectConfig()
         await Index.databaseConfig()
         Index.startServer()

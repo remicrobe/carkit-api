@@ -10,6 +10,6 @@ export class Image {
     @Column({nullable: true, transformer: new ColumnImageTransformer()})
     link: string;
 
-    @ManyToOne(() => Car, (car) => car.images)
-    car: Car
+    // @ManyToOne(() => Car, (car) => car.images)
+    // car: Car
 }

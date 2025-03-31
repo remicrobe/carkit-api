@@ -2,88 +2,72 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
-    DeleteDateColumn,
-    CreateDateColumn,
-    ManyToOne,
-    OneToMany
-} from "typeorm";
+    OneToMany, ManyToOne
+} from 'typeorm';
+import { MileageEntry } from './mileage-entry.entity';
+import { FullTankEntry } from './full-tank-entry.entity';
+import { SpendingEntry } from './spending-entry.entity';
+import { Part } from './part.entity';
+import {ColumnImageTransformer} from "../transformer/ColumnImageTransformer";
 import {User} from "./user.entity";
-import {Image} from "./image.entity";
-import {Entry} from "./entry.entity";
+import {AutoDocEntity} from "../../decorators/auto-doc-entity";
 
 @Entity()
+@AutoDocEntity()
 export class Car {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ nullable: true })
     name: string;
 
-    @Column({ nullable: true })
+    @Column()
     fabricant: string;
 
-    @Column({ nullable: true })
-    licencePlate: string;
-
-    @Column({ nullable: true })
-    vin: string;
-
-    @Column({ nullable: true })
-    type: number;
-
-    @Column({ nullable: true })
-    typeOfUse: number;
-
-    @Column({ nullable: true })
-    color: string;
-
-    @Column({ nullable: true })
+    @Column()
     model: string;
 
-    @Column({ nullable: true })
-    mileage: number;
+    @Column({ nullable: true, transformer: new ColumnImageTransformer() })
+    imageLink: string;
 
-    @Column({ nullable: true })
+    @Column({ type: 'bigint' })
+    mileageAtStart: number;
+
+    @Column({ type: 'bigint' })
     year: number;
 
-    @Column({ nullable: true })
-    fuel: number;
+    @Column()
+    type: string;
+
+    @Column()
+    createdAt: string;
 
     @Column({ nullable: true })
-    unit: number;
+    updatedAt: string;
 
     @Column({ nullable: true })
-    purchasePrice: number;
+    deletedAt: string;
 
-    @Column({ nullable: true })
-    purchaseDate: Date;
+    @OneToMany(() => MileageEntry, mileage => mileage.car, {
+        cascade: true
+    })
+    mileages: MileageEntry[];
 
-    @Column({ nullable: true })
-    mileageAtPurchase: number;
+    @OneToMany(() => FullTankEntry, fullTank => fullTank.car, {
+        cascade: true
+    })
+    fullTanks: FullTankEntry[];
 
-    @DeleteDateColumn({ nullable: true })
-    archivedAt: Date;
+    @OneToMany(() => SpendingEntry, spending => spending.car, {
+        cascade: true
+    })
+    spendings: SpendingEntry[];
 
-    @CreateDateColumn({ nullable: true })
-    createdAt: Date;
-
-    @Column({ nullable: true })
-    note: string;
+    @OneToMany(() => Part, part => part.car, {
+        cascade: true
+    })
+    parts: Part[];
 
     @ManyToOne(() => User, (user) => user.cars)
     user: User;
-
-    @OneToMany(() => Image, (photo) => photo.car, {
-        cascade: true,
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-    })
-    images: Image[]
-
-    @OneToMany(() => Entry, (e) => e.car, {
-        cascade: true,
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-    })
-    entry: Entry[]
 }
