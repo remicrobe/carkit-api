@@ -7,8 +7,8 @@ import {
     JoinColumn
 } from 'typeorm';
 import { Car } from './car.entity';
-import { Service } from './service.entity';
-import {AutoDocEntity} from "../../decorators/auto-doc-entity";
+import { SpendingEntry } from './spending-entry.entity';
+import { AutoDocEntity } from "../../decorators/auto-doc-entity";
 
 @Entity()
 @AutoDocEntity()
@@ -41,8 +41,6 @@ export class Part {
     @Column()
     carId: number;
 
-    @OneToMany(() => Service, service => service.part, {
-        cascade: true
-    })
-    services: Service[];
+    @OneToMany(() => SpendingEntry, spending => spending.vehiclePart)
+    spendings: SpendingEntry[];
 }

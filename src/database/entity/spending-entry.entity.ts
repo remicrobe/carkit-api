@@ -6,8 +6,8 @@ import {
     JoinColumn
 } from 'typeorm';
 import { Car } from './car.entity';
-import { Service } from './service.entity';
-import {AutoDocEntity} from "../../decorators/auto-doc-entity";
+import { Part } from './part.entity';
+import { AutoDocEntity } from "../../decorators/auto-doc-entity";
 
 @Entity()
 @AutoDocEntity()
@@ -15,17 +15,26 @@ export class SpendingEntry {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ nullable: true })
-    name: string;
-
     @Column('double precision')
-    cost: number;
+    amount: number;
 
     @Column()
     date: string;
 
+    @Column({ nullable: true })
+    recurrence: string;
+
     @Column()
     type: string;
+
+    @Column({ nullable: true })
+    quantity: number;
+
+    @Column({ nullable: true })
+    unit: string;
+
+    @Column({ nullable: true })
+    name: string;
 
     @Column()
     createdAt: string;
@@ -34,7 +43,7 @@ export class SpendingEntry {
     updatedAt: string;
 
     @Column({ nullable: true })
-    deleteAt: string;
+    deletedAt: string;
 
     @ManyToOne(() => Car, car => car.spendings)
     @JoinColumn({ name: 'carId' })
@@ -43,11 +52,14 @@ export class SpendingEntry {
     @Column()
     carId: number;
 
-    @ManyToOne(() => Service, service => service.spending, {
+    @ManyToOne(() => Part, part => part.spendings, {
         nullable: true
     })
-    @JoinColumn({ name: 'serviceId' })
-    service: Service;
+    @JoinColumn({ name: 'partId' })
+    vehiclePart: Part;
+
+    @Column({ nullable: true })
+    partId: number;
 
     @Column({ nullable: true })
     serviceId: number;

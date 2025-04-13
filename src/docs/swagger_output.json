@@ -327,7 +327,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "cost": {
+                "amount": {
                   "example": 150.75
                 },
                 "date": {
@@ -338,6 +338,18 @@
                 },
                 "name": {
                   "example": "Annual insurance"
+                },
+                "recurrence": {
+                  "example": "yearly"
+                },
+                "quantity": {
+                  "example": 1
+                },
+                "unit": {
+                  "example": "item"
+                },
+                "partId": {
+                  "example": 1
                 }
               }
             }
@@ -360,7 +372,7 @@
               "type": "string",
               "example": {
                 "id": "uuid",
-                "cost": 150.75,
+                "amount": 150.75,
                 "date": "2023-01-01",
                 "type": "insurance",
                 "name": "Annual insurance"
@@ -414,7 +426,7 @@
               "example": [
                 {
                   "id": "uuid",
-                  "cost": 150.75,
+                  "amount": 150.75,
                   "date": "2023-01-01",
                   "type": "insurance",
                   "name": "Annual insurance"
@@ -1384,7 +1396,7 @@
                 "model": {
                   "example": "Model S"
                 },
-                "make": {
+                "brand": {
                   "example": "Tesla"
                 },
                 "name": {
@@ -1411,9 +1423,9 @@
               "example": {
                 "id": "uuid",
                 "name": "My Tesla",
-                "make": "Tesla",
+                "brand": "Tesla",
                 "model": "Model S",
-                "type": "elec"
+                "type": "ice"
               }
             }
           },
@@ -1454,9 +1466,9 @@
                 {
                   "id": "uuid",
                   "name": "My Tesla",
-                  "make": "Tesla",
+                  "brand": "Tesla",
                   "model": "Model S",
-                  "type": "elec"
+                  "type": "ice"
                 }
               ]
             }
@@ -1500,9 +1512,9 @@
               "example": {
                 "id": "uuid",
                 "name": "My Tesla",
-                "make": "Tesla",
+                "brand": "Tesla",
                 "model": "Model S",
-                "type": "elec"
+                "type": "ice"
               }
             }
           },
@@ -1542,7 +1554,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "make": {
+                "brand": {
                   "example": "Tesla"
                 },
                 "model": {
@@ -1558,7 +1570,7 @@
                   "example": 2020
                 },
                 "type": {
-                  "example": "elec"
+                  "example": "ice"
                 },
                 "imageData": {
                   "example": "base64ImageString"
@@ -1585,9 +1597,9 @@
               "example": {
                 "id": "uuid",
                 "name": "Updated Tesla",
-                "make": "Tesla",
+                "brand": "Tesla",
                 "model": "Model S",
-                "type": "elec"
+                "type": "ice"
               }
             }
           },
@@ -1761,7 +1773,7 @@
         "createdAt": {
           "type": "string"
         },
-        "updateAt": {
+        "updatedAt": {
           "type": "string"
         },
         "deletedAt": {
@@ -1779,7 +1791,7 @@
         "mileage",
         "date",
         "createdAt",
-        "updateAt",
+        "updatedAt",
         "deletedAt",
         "car",
         "carId"
@@ -1866,7 +1878,7 @@
         "carId": {
           "type": "string"
         },
-        "services": {
+        "spendings": {
           "type": "string"
         }
       },
@@ -1880,7 +1892,7 @@
         "deletedAt",
         "car",
         "carId",
-        "services"
+        "spendings"
       ]
     },
     "Service": {
@@ -1932,16 +1944,25 @@
         "id": {
           "type": "string"
         },
-        "name": {
-          "type": "string"
-        },
-        "cost": {
+        "amount": {
           "type": "string"
         },
         "date": {
           "type": "string"
         },
+        "recurrence": {
+          "type": "string"
+        },
         "type": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         },
         "createdAt": {
@@ -1950,7 +1971,7 @@
         "updatedAt": {
           "type": "string"
         },
-        "deleteAt": {
+        "deletedAt": {
           "type": "string"
         },
         "car": {
@@ -1959,7 +1980,10 @@
         "carId": {
           "type": "string"
         },
-        "service": {
+        "vehiclePart": {
+          "type": "string"
+        },
+        "partId": {
           "type": "string"
         },
         "serviceId": {
@@ -1968,16 +1992,20 @@
       },
       "required": [
         "id",
-        "name",
-        "cost",
+        "amount",
         "date",
+        "recurrence",
         "type",
+        "quantity",
+        "unit",
+        "name",
         "createdAt",
         "updatedAt",
-        "deleteAt",
+        "deletedAt",
         "car",
         "carId",
-        "service",
+        "vehiclePart",
+        "partId",
         "serviceId"
       ]
     },
@@ -1990,13 +2018,13 @@
         "name": {
           "type": "string"
         },
-        "fabricant": {
+        "brand": {
           "type": "string"
         },
         "model": {
           "type": "string"
         },
-        "imageLink": {
+        "imageUrl": {
           "type": "string"
         },
         "mileageAtStart": {
@@ -2017,16 +2045,13 @@
         "deletedAt": {
           "type": "string"
         },
+        "parts": {
+          "type": "string"
+        },
         "mileages": {
           "type": "string"
         },
-        "fullTanks": {
-          "type": "string"
-        },
         "spendings": {
-          "type": "string"
-        },
-        "parts": {
           "type": "string"
         },
         "user": {
@@ -2036,19 +2061,18 @@
       "required": [
         "id",
         "name",
-        "fabricant",
+        "brand",
         "model",
-        "imageLink",
+        "imageUrl",
         "mileageAtStart",
         "year",
         "type",
         "createdAt",
         "updatedAt",
         "deletedAt",
-        "mileages",
-        "fullTanks",
-        "spendings",
         "parts",
+        "mileages",
+        "spendings",
         "user"
       ]
     },

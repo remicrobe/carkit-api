@@ -6,7 +6,7 @@ import {
     JoinColumn
 } from 'typeorm';
 import { Car } from './car.entity';
-import {AutoDocEntity} from "../../decorators/auto-doc-entity";
+import { AutoDocEntity } from "../../decorators/auto-doc-entity";
 
 @Entity()
 @AutoDocEntity()
@@ -24,7 +24,7 @@ export class MileageEntry {
     createdAt: string;
 
     @Column({ nullable: true })
-    updateAt: string;
+    updatedAt: string;
 
     @Column({ nullable: true })
     deletedAt: string;

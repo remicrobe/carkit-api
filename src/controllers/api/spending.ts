@@ -1,14 +1,14 @@
-import { Controller, Get, Post, Delete, Error, AutoDoc, CheckJwt } from "../../decorators";
+import { AutoDoc, CheckJwt, Controller, Delete, Error, Get, Post } from "../../decorators";
 import { Request, Response } from "express";
 import { SpendingEntry } from "../../database/entity/spending-entry.entity";
 import { SpendingEntryRepository } from "../../database/repository/spending-entry.repository";
 import { CarRepository } from "../../database/repository/car.repository";
+import { PartRepository } from "../../database/repository/part.repository";
 import { statusMsg } from "../../utils/global";
 import { ErrorHandler } from "../../utils/error/error-handler";
 
 @Controller('spending')
 export default class SpendingEntryController {
-
     @Post('/:carId')
     @CheckJwt()
     @Error()
@@ -25,15 +25,19 @@ export default class SpendingEntryController {
                 required: true,
                 description: 'Spending entry data',
                 exemple: {
-                    cost: 150.75,
+                    amount: 150.75,
                     date: '2023-01-01',
                     type: 'insurance',
-                    name: 'Annual insurance'
+                    name: 'Annual insurance',
+                    recurrence: 'yearly',
+                    quantity: 1,
+                    unit: 'item',
+                    partId: 1
                 }
             }
         }],
         responses: [
-            { code: 200, exemple: { id: 'uuid', cost: 150.75, date: '2023-01-01', type: 'insurance', name: 'Annual insurance' } },
+            { code: 200, exemple: { id: 'uuid', amount: 150.75, date: '2023-01-01', type: 'insurance', name: 'Annual insurance' } },
             { code: 401, exemple: { status: 401, msg: 'Unauthorized.' } },
             { code: 404, exemple: { status: 404, msg: 'Car not found.' } }
         ]
@@ -41,16 +45,23 @@ export default class SpendingEntryController {
     public async addSpending(req: Request, res: Response) {
         try {
             const { carId } = req.params;
-            const { cost, date, type, name } = req.body;
+            const { amount, date, type, name, recurrence, quantity, unit, partId } = req.body;
 
             const car = await CarRepository.findOneOrFail({ where: { id: Number(carId) } });
 
             const entry = new SpendingEntry();
-            entry.cost = cost;
+            entry.amount = amount;
             entry.date = date;
             entry.type = type;
             entry.name = name || null;
+            entry.recurrence = recurrence || null;
+            entry.quantity = quantity || null;
+            entry.unit = unit || null;
             entry.car = car;
+
+            if (partId) {
+                entry.vehiclePart = await PartRepository.findOneOrFail ({ where: { id: partId } });
+            }
 
             const savedEntry = await SpendingEntryRepository.save(entry);
 
@@ -74,7 +85,7 @@ export default class SpendingEntryController {
             ]
         }],
         responses: [
-            { code: 200, exemple: [{ id: 'uuid', cost: 150.75, date: '2023-01-01', type: 'insurance', name: 'Annual insurance' }] },
+            { code: 200, exemple: [{ id: 'uuid', amount: 150.75, date: '2023-01-01', type: 'insurance', name: 'Annual insurance' }] },
             { code: 401, exemple: { status: 401, msg: 'Unauthorized.' } },
             { code: 404, exemple: { status: 404, msg: 'Car not found.' } }
         ]
@@ -84,6 +95,7 @@ export default class SpendingEntryController {
             const { carId } = req.params;
             const entries = await SpendingEntryRepository.find({
                 where: { car: { id: Number(carId) } },
+                relations: ['vehiclePart'],
                 order: { date: 'DESC' }
             });
             return res.send(entries);
